@@ -1,5 +1,5 @@
 import React from "react";
-import { Transaction } from "./types";
+import { Transaction } from "../../utils/types";
 
 export const Row = ({ transaction }: { transaction: Transaction }) => {
   const [open, setOpen] = React.useState(false);

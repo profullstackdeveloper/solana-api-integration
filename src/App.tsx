@@ -1,16 +1,12 @@
 import "./App.css";
 import { CollapsibleTable } from "./component/CollapsibleTable";
+import Layout from "./layout/Layout";
 
 function App() {
   return (
-    <div>
-      <div className="relative">
-        <h1 className="text-4xl font-serif text-center p-5 h-[50px] ">
-          Account's Transactions
-        </h1>
-      </div>
-      <CollapsibleTable />
-    </div>
+    <Layout>
+      <CollapsibleTable></CollapsibleTable>
+    </Layout>
   );
 }
 

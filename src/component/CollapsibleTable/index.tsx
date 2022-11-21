@@ -1,28 +1,27 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Transaction } from "./types";
+import { Transaction } from "../../utils/types";
 import { Row } from "./Row";
+import { fetchTx } from "../../utils/api";
 
 export const CollapsibleTable = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [searchWord, setSearchWord] = useState("");
   const accountAddress = "rFqFJ9g7TGBD8Ed7TPDnvGKZ5pWLPDyxLcvcH2eRCtt";
-  const key = "hkdjxWcQOMECMYN5vU8qY9hm6ynCQMPVp0hdRGYgAAcFZlv7";
 
   useEffect(() => {
     fetch();
   }, []);
 
   const fetch = async () => {
-    const response = await axios.get(
-      `https://svc.blockdaemon.com/universal/v1/solana/mainnet/account/${accountAddress}/txs?page_size=50`,
-      {
-        headers: {
-          Authorization: `Bearer ${key}`,
-        },
-      }
-    );
-    setTransactions(response.data.data);
+    const key = process.env.REACT_APP_API_KEY;
+    if (key) {
+      const response = await fetchTx(accountAddress, key, 50, 1);
+      setTransactions(response.data.data);
+    } else {
+      throw new Error("API key is required!");
+    }
+
   };
 
   return (
